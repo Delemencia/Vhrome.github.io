@@ -27,7 +27,7 @@
   <div class="tab-strip" id="tabStrip">
     <div class="vhrome-logo" onclick="loadHome()">Vhrome</div>
     <div class="tab active" onclick="switchTab(0)" id="tab-0">
-      <span class="tab-title">Vhrome Home</span>
+      <span class="tab-title">Vhrome UI Editor</span>
       <span class="tab-close" onclick="event.stopPropagation(); closeTab(0)">×</span>
     </div>
     <div class="new-tab-btn" onclick="addNewTab()"></div>
@@ -86,7 +86,7 @@
     }
 
     let proxiedUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(finalUrl);
-    document.getElementById('frame-' + activeId).srcdoc = ""; // Clear srcdoc
+    document.getElementById('frame-' + activeId).srcdoc = ""; 
     document.getElementById('frame-' + activeId).src = proxiedUrl;
     document.querySelector('#tab-' + activeId + ' .tab-title').innerText = input;
   }
