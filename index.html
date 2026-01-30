@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Vhrome! age tea em L</title>
+<title>MAKE CODE! Vhrome.org</title>
 <style>
   :root { --bg: #f2f2f2; --tab-inactive: #bcbcbc; --text: #5a5a5a; --border: #d2d2d2; }
   body, html { margin: 0; padding: 0; height: 100%; font-family: "Segoe UI", Tahoma, sans-serif; overflow: hidden; background-color: var(--bg); }
@@ -50,7 +50,7 @@
             <div onclick="loadHome()">HTML Editor</div>
             <div onclick="loadCSS()">CSS Editor</div>
             <div onclick="loadPython()">Python Editor</div>
-            <div onclick="loadNotepad()">Notepad 1.2 xd</div>
+            <div onclick="loadNotepad()">Notepad</div>
             <div class="menu-header">THEMES</div>
             <div onclick="setTheme('#f2f2f2', '#bcbcbc')">Light Theme</div>
             <div onclick="setTheme('#2c2c2c', '#444')">Dark Theme</div>
@@ -67,13 +67,13 @@
   let tabCount = 1;
   let activeId = 0;
 
-  const homeHTML = `<body style="font-family:sans-serif; text-align:center; padding:50px; background:#f9f9f9;"><h1 style="color:#5a5a5a; font-style:italic;">Welcome to Vhrome.org!</h1><p>Type <b>Notepad.org</b> for Old Notepad!</p><p>Type your HTML code below:</p><textarea id="code" style="width:80%; height:200px; padding:10px; border:1px solid #ccc; font-family:monospace;"></textarea><br><br><button onclick="run()" style="padding:10px 20px; cursor:pointer; background:#bcbcbc; border:1px solid #aaa;">Run HTML Code</button><script>function run() { const html = document.getElementById('code').value; document.body.innerHTML = html; }<\/script></body>`;
+  const homeHTML = `<body style="font-family:sans-serif; text-align:center; padding:50px; background:#f9f9f9;"><h1 style="color:#5a5a5a; font-style:italic;">Welcome to Vhrome.org!</h1><p>Go to <b>css.org</b>, <b>python.org</b>, or <b>notepad.org</b></p><p>Type your HTML code below:</p><textarea id="code" style="width:80%; height:200px; padding:10px; border:1px solid #ccc; font-family:monospace;"></textarea><br><br><button onclick="run()" style="padding:10px 20px; cursor:pointer; background:#bcbcbc; border:1px solid #aaa;">Run HTML Code</button><script>function run() { const html = document.getElementById('code').value; document.body.innerHTML = html; }<\/script></body>`;
 
   const cssHTML = `<body style="font-family:sans-serif; text-align:center; padding:50px; background:#f9f9f9;"><h1 style="color:#5a5a5a; font-style:italic;">CSS UI Editor</h1><textarea id="cssCode" style="width:80%; height:150px; padding:10px; border:1px solid #ccc; font-family:monospace;">/* Try: body { background: gold; } */</textarea><br><br><button onclick="applyCSS()" style="padding:10px 20px; cursor:pointer; background:#bcbcbc; border:1px solid #aaa;">Apply CSS</button><div id="preview" style="margin-top:20px; padding:20px; border:1px dashed #999;">Preview Box</div><style id="dynamicStyle"></style><script>function applyCSS() { const css = document.getElementById('cssCode').value; document.getElementById('dynamicStyle').innerHTML = css; }<\/script></body>`;
 
   const pythonHTML = `<body style="font-family:sans-serif; text-align:center; padding:50px; background:#f0f0f0;"><h1 style="color:#3776ab;">Python.org Editor</h1><p>Wait for Python to load...</p><textarea id="pyCode" style="width:80%; height:150px; padding:10px; border:1px solid #ccc; font-family:monospace;">print("Hello from Vhrome!")\\nprint(2 + 2)</textarea><br><br><button id="runBtn" onclick="runPython()" style="padding:10px 20px; cursor:pointer; background:#3776ab; color:white; border:none; border-radius:4px;">Run Python</button><pre id="output" style="text-align:left; background:#222; color:#0f0; padding:15px; width:80%; margin:20px auto; min-height:50px; overflow:auto;"></pre><script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"><\/script><script>let pyodide; async function loadPy() { pyodide = await loadPyodide(); document.getElementById('runBtn').innerText = "Run Python"; } loadPy(); async function runPython() { const code = document.getElementById('pyCode').value; const output = document.getElementById('output'); output.innerText = "Running..."; try { pyodide.runPython("import sys\\nimport io\\nsys.stdout = io.StringIO()"); await pyodide.runPythonAsync(code); const stdout = pyodide.runPython("sys.stdout.getvalue()"); output.innerText = stdout; } catch (err) { output.innerText = err; } }<\/script></body>`;
 
-  const notepadHTML = `<body style="margin:0; padding:0; background:white; font-family:'Lucida Console', monospace; display:flex; flex-direction:column; height:100vh;"><div style="background:#f0f0f0; border-bottom:1px solid #ccc; padding:2px 10px; font-size:12px; font-family:sans-serif;">File &nbsp; Edit &nbsp; Format &nbsp; View &nbsp; Help</div><textarea style="flex-grow:1; border:none; outline:none; padding:10px; resize:none; font-family:inherit; font-size:14px;" placeholder="Start typing..."></textarea></body>`;
+  const notepadHTML = `<body style="margin:0; padding:0; background:white; font-family:'Lucida Console', monospace; display:flex; flex-direction:column; height:100vh;"><div style="background:#ebebeb; border-bottom:1px solid #ccc; display:flex; justify-content:space-between; align-items:center; padding:2px 5px; height:25px;"><div style="font-size:12px; font-family:sans-serif;">Untitled - Notepad</div><div style="display:flex; gap:10px; padding-right:5px;"><span style="cursor:pointer; font-size:14px;">_</span><span style="cursor:pointer; font-size:14px; border:1px solid #555; width:10px; height:10px; display:inline-block; margin-top:3px;"></span><span style="cursor:pointer; font-size:16px;">&times;</span></div></div><div style="background:#f0f0f0; border-bottom:1px solid #ccc; padding:2px 10px; font-size:12px; font-family:sans-serif; cursor:default;"><span onclick="saveFile()">File</span> &nbsp; Edit &nbsp; Format &nbsp; View &nbsp; Help</div><textarea id="noteArea" style="flex-grow:1; border:none; outline:none; padding:10px; resize:none; font-family:inherit; font-size:14px;" placeholder="Start typing..."></textarea><script>function saveFile(){const text = document.getElementById('noteArea').value; const blob = new Blob([text], {type:'text/plain'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'note.txt'; a.click();}<\/script></body>`;
 
   window.onload = () => { document.getElementById('frame-0').srcdoc = homeHTML; };
 
@@ -110,7 +110,7 @@
   function loadNotepad() {
     document.getElementById('urlInput').value = "Notepad.org";
     document.getElementById('frame-' + activeId).srcdoc = notepadHTML;
-    document.querySelector('#tab-' + activeId + ' .tab-title').innerText = "Notepad - Vhrome";
+    document.querySelector('#tab-' + activeId + ' .tab-title').innerText = "Notepad";
   }
 
   function setTheme(bg, tab) {
